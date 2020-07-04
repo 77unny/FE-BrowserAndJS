@@ -8,14 +8,19 @@
       body {
         background: #333;
       }
-      div {
+      div:not(.btns) {
         width: 200px;
         height: 200px;
         margin: 2px;
         background: #fff;
       }
-      .box {
+      div.box {
         background: aquamarine;
+      }
+      .btns {
+        position: fixed;
+        top: 20px;
+        right: 20px;
       }
     </style>
     <script>
@@ -31,9 +36,20 @@
           });
         });
       });
+
+      const onClickScrollTop = () => window.scroll({ top: 200, left: 0, behavior: 'smooth' });
+      const onClickScrollByTop = () => window.scrollBy({ top: 200, left: 0, behavior: 'smooth' });
+      const onClickScrollToTop = () => window.scrollTo({ top: 200, left: 0, behavior: 'smooth' });
+      const onClickScrollToElement = () => document.querySelector('.box').scrollIntoView({ behavior: 'smooth' });
     </script>
   </head>
   <body>
+    <div class="btns">
+      <button onclick="onClickScrollTop()">scroll X 200</button>
+      <button onclick="onClickScrollByTop()">scrollBy X 200</button>
+      <button onclick="onClickScrollToTop()">scrollTo Y 200</button>
+      <button onclick="onClickScrollToElement()">scroll to box</button>
+    </div>
     <div></div>
     <div></div>
     <div></div>
