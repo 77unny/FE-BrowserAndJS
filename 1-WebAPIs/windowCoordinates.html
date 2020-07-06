@@ -26,10 +26,10 @@
     <script>
       window.addEventListener('DOMContentLoaded', () => {
         const divElements = document.querySelectorAll('div');
-        const scrollBtnElement = document.querySelector('.scrollX');
-        const scrollByBtnElement = document.querySelector('.scrollByX');
-        const scrollToBtnElement = document.querySelector('.scrollToX');
-        const scrollIntoBtnElement = document.querySelector('.scrollIntoX');
+        const scrollBtnElement = document.querySelector('.scroll-x');
+        const scrollByBtnElement = document.querySelector('.scroll-by-x');
+        const scrollToBtnElement = document.querySelector('.scroll-to-x');
+        const scrollIntoBtnElement = document.querySelector('.scroll-into-x');
 
         const onClickScrollTop = () => window.scroll({ top: 200, left: 0, behavior: 'smooth' });
         const onClickScrollByTop = () => window.scrollBy({ top: 200, left: 0, behavior: 'smooth' });
@@ -55,10 +55,10 @@
   </head>
   <body>
     <aside>
-      <button class="scrollX">scroll X 200</button>
-      <button class="scrollByX">scrollBy X 200</button>
-      <button class="scrollToX">scrollTo Y 200</button>
-      <button class="scrollIntoX">scroll to box</button>
+      <button class="scroll-x">scroll X 200</button>
+      <button class="scroll-by-x">scrollBy X 200</button>
+      <button class="scroll-to-x">scrollTo Y 200</button>
+      <button class="scroll-into-x">scroll to box</button>
     </aside>
     <div></div>
     <div></div>
