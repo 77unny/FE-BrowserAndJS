@@ -17,7 +17,7 @@
       div.box {
         background: aquamarine;
       }
-      .btns {
+      aside {
         position: fixed;
         top: 20px;
         right: 20px;
@@ -26,6 +26,16 @@
     <script>
       window.addEventListener('DOMContentLoaded', () => {
         const divElements = document.querySelectorAll('div');
+        const scrollBtnElement = document.querySelector('.scrollX');
+        const scrollByBtnElement = document.querySelector('.scrollByX');
+        const scrollToBtnElement = document.querySelector('.scrollToX');
+        const scrollIntoBtnElement = document.querySelector('.scrollIntoX');
+
+        const onClickScrollTop = () => window.scroll({ top: 200, left: 0, behavior: 'smooth' });
+        const onClickScrollByTop = () => window.scrollBy({ top: 200, left: 0, behavior: 'smooth' });
+        const onClickScrollToTop = () => window.scrollTo({ top: 200, left: 0, behavior: 'smooth' });
+        const onClickScrollToElement = () => document.querySelector('.box').scrollIntoView({ behavior: 'smooth' });
+
         divElements.forEach(element => {
           element.addEventListener('click', e => {
             const rect = element.getBoundingClientRect();
@@ -35,21 +45,21 @@
             console.log(e);
           });
         });
-      });
 
-      const onClickScrollTop = () => window.scroll({ top: 200, left: 0, behavior: 'smooth' });
-      const onClickScrollByTop = () => window.scrollBy({ top: 200, left: 0, behavior: 'smooth' });
-      const onClickScrollToTop = () => window.scrollTo({ top: 200, left: 0, behavior: 'smooth' });
-      const onClickScrollToElement = () => document.querySelector('.box').scrollIntoView({ behavior: 'smooth' });
+        scrollBtnElement.addEventListener('click', onClickScrollTop);
+        scrollByBtnElement.addEventListener('click', onClickScrollByTop);
+        scrollToBtnElement.addEventListener('click', onClickScrollToTop);
+        scrollIntoBtnElement.addEventListener('click', onClickScrollToElement);
+      });
     </script>
   </head>
   <body>
-    <div class="btns">
-      <button onclick="onClickScrollTop()">scroll X 200</button>
-      <button onclick="onClickScrollByTop()">scrollBy X 200</button>
-      <button onclick="onClickScrollToTop()">scrollTo Y 200</button>
-      <button onclick="onClickScrollToElement()">scroll to box</button>
-    </div>
+    <aside>
+      <button class="scrollX">scroll X 200</button>
+      <button class="scrollByX">scrollBy X 200</button>
+      <button class="scrollToX">scrollTo Y 200</button>
+      <button class="scrollIntoX">scroll to box</button>
+    </aside>
     <div></div>
     <div></div>
     <div></div>
