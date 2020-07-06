@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        background: #333;
+      }
+      aside {
+        text-align: center;
+      }
+      div {
+        width: 200px;
+        height: 230px;
+        margin: 0 auto;
+      }
+      img {
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <button class="btn">go to rabbit</button>
+    </aside>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div class="rabbit"><img src="./resource/images/rabbit.png" alt="rabbit" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <div><img src="./resource/images/carrot.png" alt="carrot" /></div>
+    <script>
+      const goToTargetBtn = document.querySelector('.btn');
+      const rabbitElement = document.querySelector('.rabbit');
+
+      goToTargetBtn.addEventListener('click', () => {
+        rabbitElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    </script>
+  </body>
+</html>
