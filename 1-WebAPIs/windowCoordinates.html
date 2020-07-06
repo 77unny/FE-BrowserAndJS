@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>window coordinates</title>
+    <style>
+      body {
+        background: #333;
+      }
+      div:not(.btns) {
+        width: 200px;
+        height: 200px;
+        margin: 2px;
+        background: #fff;
+      }
+      div.box {
+        background: aquamarine;
+      }
+      aside {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+      }
+    </style>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const divElements = document.querySelectorAll('div');
+        const scrollBtnElement = document.querySelector('.scroll-x');
+        const scrollByBtnElement = document.querySelector('.scroll-by-x');
+        const scrollToBtnElement = document.querySelector('.scroll-to-x');
+        const scrollIntoBtnElement = document.querySelector('.scroll-into-x');
+
+        const onClickScrollTop = () => window.scroll({ top: 200, left: 0, behavior: 'smooth' });
+        const onClickScrollByTop = () => window.scrollBy({ top: 200, left: 0, behavior: 'smooth' });
+        const onClickScrollToTop = () => window.scrollTo({ top: 200, left: 0, behavior: 'smooth' });
+        const onClickScrollToElement = () => document.querySelector('.box').scrollIntoView({ behavior: 'smooth' });
+
+        divElements.forEach(element => {
+          element.addEventListener('click', e => {
+            const rect = element.getBoundingClientRect();
+            console.log(rect);
+            console.log(`client : ${e.clientX} / ${e.clientY}`);
+            console.log(`page : ${e.pageX} / ${e.pageY}`);
+            console.log(e);
+          });
+        });
+
+        scrollBtnElement.addEventListener('click', onClickScrollTop);
+        scrollByBtnElement.addEventListener('click', onClickScrollByTop);
+        scrollToBtnElement.addEventListener('click', onClickScrollToTop);
+        scrollIntoBtnElement.addEventListener('click', onClickScrollToElement);
+      });
+    </script>
+  </head>
+  <body>
+    <aside>
+      <button class="scroll-x">scroll X 200</button>
+      <button class="scroll-by-x">scrollBy X 200</button>
+      <button class="scroll-to-x">scrollTo Y 200</button>
+      <button class="scroll-into-x">scroll to box</button>
+    </aside>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div class="box"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </body>
+</html>

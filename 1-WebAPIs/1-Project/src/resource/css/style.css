@@ -1,0 +1,29 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #333;
+  cursor: url(../images/target.png) 60 60, pointer;
+}
+
+.mouse-pointer {
+  position: absolute;
+  color: #fff;
+}
+
+.mouse-line-y,
+.mouse-line-x {
+  position: absolute;
+  background: #fff;
+}
+.mouse-line-y {
+  width: 1px;
+  height: 100%;
+}
+
+.mouse-line-x {
+  width: 100%;
+  height: 1px;
+}
