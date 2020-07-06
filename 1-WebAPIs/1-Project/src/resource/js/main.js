@@ -10,22 +10,27 @@ window.addEventListener('DOMContentLoaded', () => {
   const mousePointerElement = document.querySelector('.mouse-pointer');
   const lineYElement = document.querySelector('.mouse-line-y');
   const lineXElement = document.querySelector('.mouse-line-x');
+  mousePointerElement.style.position = 'absolute';
+  lineXElement.style.position = 'absolute';
+  lineYElement.style.position = 'absolute';
+
+  lineXElement.style.width = '100%';
+  lineXElement.style.height = '1px';
+  lineXElement.style.background = '#fff';
+
+  lineYElement.style.width = '1px';
+  lineYElement.style.height = '100%';
+  lineYElement.style.background = '#fff';
 
   document.addEventListener('mousemove', e => {
     const pointerX = e.clientX;
     const pointerY = e.clientY;
-    mousePointerElement.setAttribute(
-      'style',
-      `position:absolute; top:${pointerY + pointerSize}px; left:${pointerX + pointerSize}px; color:#fff;`,
-    );
-    lineXElement.setAttribute(
-      'style',
-      `position:absolute; top:${pointerY}px; left: 0;width:100%; height:1px; background: #fff`,
-    );
-    lineYElement.setAttribute(
-      'style',
-      `position:absolute; top:0; left: ${pointerX}px; width:1px; height:100%; background: #fff`,
-    );
+    mousePointerElement.style.transform = `translate(${pointerX + pointerSize}px, ${pointerY + pointerSize}px)`;
+    mousePointerElement.style.color = '#fff';
+
+    lineXElement.style.transform = `translateY(${pointerY}px)`;
+    lineYElement.style.transform = `translateX(${pointerX}px)`;
+
     mousePointerElement.innerHTML = `${pointerX} | ${pointerY}`;
   });
 });
