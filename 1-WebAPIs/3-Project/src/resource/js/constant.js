@@ -1,3 +1,4 @@
-const MAIN_TAG = '[Shopping App]';
+const MAIN = '[Shopping App]';
+const TITLE = 'Shopping App';
 
-export { MAIN_TAG };
+export { MAIN, TITLE };
