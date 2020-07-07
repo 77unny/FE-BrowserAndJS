@@ -9,17 +9,34 @@ window.addEventListener('DOMContentLoaded', () => {
   const listElement = document.querySelector('.shopping-list');
   let shoppingItem = null;
 
-  formInputElement.focus();
+  const createItem = value => {
+    const createDiv = document.createElement('div');
+    const createSapn = document.createElement('span');
+    const createBtn = document.createElement('button');
+    createDiv.setAttribute('class', 'shopping-item');
+    createBtn.setAttribute('class', 'btn-del');
+    createBtn.innerText = '제거';
+    createSapn.innerText = value;
+    createBtn.addEventListener('click', () => listElement.removeChild(createDiv));
+    createDiv.appendChild(createSapn);
+    createDiv.appendChild(createBtn);
+    return listElement.appendChild(createDiv);
+  };
+
+  const initalState = () => {
+    formInputElement.focus();
+    formInputElement.value = '';
+    shoppingItem = null;
+  };
+
+  initalState();
 
   formElement.addEventListener('submit', e => {
     e.preventDefault();
     if (!shoppingItem) return;
-    listElement.insertAdjacentHTML(
-      'beforeend',
-      `<div class="shopping-item"><span>${shoppingItem}</span><button class="btn-del">제거</button></div>`,
-    );
-    formInputElement.value = '';
-    shoppingItem = null;
+    createItem(shoppingItem);
+    initalState();
   });
+
   formElement.addEventListener('input', e => (shoppingItem = e.target.value));
 });
