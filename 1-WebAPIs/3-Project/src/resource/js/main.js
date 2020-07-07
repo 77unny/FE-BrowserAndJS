@@ -4,8 +4,8 @@ import { LOG } from './utils.js';
 window.addEventListener('DOMContentLoaded', () => {
   LOG(TAG_LIST.MAIN);
 
-  const formElement = document.querySelector('.shopping-form form');
-  const formInputElement = document.querySelector('.shopping-form input');
+  const formElement = document.querySelector(TAG_LIST.ELEMENTS_NAMESPACE.FORM);
+  const formInputElement = document.querySelector(TAG_LIST.ELEMENTS_NAMESPACE.INPUT);
   const shoppingList = new Set();
   let shoppingItem = null;
 

@@ -1,4 +1,9 @@
 const MAIN = '[Shopping App]';
 const TITLE = 'Shopping App';
 
-export { MAIN, TITLE };
+const ELEMENTS_NAMESPACE = {
+  FORM: '.shopping-form form',
+  INPUT: '.shopping-form input',
+};
+
+export { MAIN, TITLE, ELEMENTS_NAMESPACE };
