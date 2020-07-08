@@ -1,5 +1,6 @@
-export const connectComponents = (root, ...elements) => {
-  return [...elements].forEach(item => {
-    root.insertAdjacentHTML('beforeend', item);
-  });
+export const connectComponents = (root, elementObj) => {
+  const template = Object.keys(elementObj).reduce((html, element) => {
+    return (html += elementObj[element]);
+  }, '');
+  return root.insertAdjacentHTML('beforeend', template);
 };

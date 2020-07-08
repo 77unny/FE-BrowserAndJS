@@ -9,4 +9,8 @@ const headerComponent = Header(CONSTANT.TITLE);
 const listComponent = List();
 const formComponent = Form();
 
-Utils.connectComponents(root, headerComponent, listComponent, formComponent);
+Utils.connectComponents(root, {
+  header: headerComponent,
+  list: listComponent,
+  form: formComponent,
+});
