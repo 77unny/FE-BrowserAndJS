@@ -38,11 +38,6 @@ const createItem = (item, index) => {
 
   const btnDel = document.querySelector(`[data-index="${index}"]`);
   btnDel.scrollIntoView({ block: 'center' });
-  btnDel.addEventListener('click', () => {
-    deleteListData(index);
-    clearDocumentList();
-    renderList(MOCK_LIST);
-  });
   return;
 };
 
@@ -61,6 +56,14 @@ formElement.addEventListener('submit', e => {
   clearDocumentList();
   renderList(MOCK_LIST);
   formInputElement.value = '';
+});
+
+listElement.addEventListener('click', e => {
+  if (e.target.dataset.index) {
+    deleteListData(parseInt(e.target.dataset.index));
+    clearDocumentList();
+    renderList(MOCK_LIST);
+  }
 });
 
 formInputElement.focus();
