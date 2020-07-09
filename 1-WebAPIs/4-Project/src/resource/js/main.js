@@ -3,12 +3,13 @@ import * as CONSTANT from './utils/constant.js';
 import Header from './Components/Header/header.js';
 import List from './Components/List/list.js';
 import Form from './Components/Form/form.js';
+
 const MOCK_LIST = new Map();
 
 const root = document.querySelector('#shopping-app');
-const headerComponent = Header(CONSTANT.TITLE);
-const listComponent = List(MOCK_LIST);
-const formComponent = Form();
+const headerComponent = Header({ classname: CONSTANT.ELEMENTS_CLASSNAME.TITLE, title: CONSTANT.TITLE });
+const listComponent = List({ classname: CONSTANT.ELEMENTS_CLASSNAME.LIST });
+const formComponent = Form({ classname: CONSTANT.ELEMENTS_CLASSNAME.FORM });
 
 Utils.connectComponents(root, {
   header: headerComponent,
@@ -16,11 +17,11 @@ Utils.connectComponents(root, {
   form: formComponent,
 });
 
-let idCount = 1;
+let COUNT_ID = CONSTANT.COUNT_ID;
 
-const formElement = document.querySelector('.shopping-form');
-const formInputElement = document.querySelector('.shopping-form input');
-const listElement = document.querySelector('.shopping-list');
+const formElement = document.querySelector(CONSTANT.ELEMENTS_NAMESPACE.FORM);
+const formInputElement = document.querySelector(CONSTANT.ELEMENTS_NAMESPACE.INPUT);
+const listElement = document.querySelector(CONSTANT.ELEMENTS_NAMESPACE.LIST);
 
 const setListData = data => {
   const { id, title } = data;
@@ -54,8 +55,8 @@ const renderList = dataList => {
 
 formElement.addEventListener('submit', e => {
   e.preventDefault();
-  setListData({ id: idCount, title: formInputElement.value });
-  idCount++;
+  setListData({ id: COUNT_ID, title: formInputElement.value });
+  COUNT_ID++;
   clearDocumentList();
   renderList(MOCK_LIST);
   formInputElement.value = '';

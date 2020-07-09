@@ -1,3 +1,3 @@
-export default function List() {
-  return `<div class="shopping-list"></div>`;
+export default function List({ classname }) {
+  return `<div class="${classname}"></div>`;
 }

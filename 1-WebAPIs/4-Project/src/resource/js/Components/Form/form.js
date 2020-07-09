@@ -1,6 +1,6 @@
-export default function Form() {
+export default function Form({ classname }) {
   return `
-  <div class="shopping-form">
+  <div class="${classname}">
     <form>
       <input type="text" />
       <button>등록</button>

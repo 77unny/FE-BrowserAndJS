@@ -1,3 +1,3 @@
-export default function Header(title) {
-  return `<div class="shopping-title">${title}</div>`;
+export default function Header({ classname, title }) {
+  return `<div class="${classname}">${title}</div>`;
 }
