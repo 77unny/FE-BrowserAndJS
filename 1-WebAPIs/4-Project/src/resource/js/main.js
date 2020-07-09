@@ -55,9 +55,12 @@ const renderList = dataList => {
 
 formElement.addEventListener('submit', e => {
   e.preventDefault();
+  if (!formInputElement.value) return;
   setListData({ id: COUNT_ID, title: formInputElement.value });
   COUNT_ID++;
   clearDocumentList();
   renderList(MOCK_LIST);
   formInputElement.value = '';
 });
+
+formInputElement.focus();
