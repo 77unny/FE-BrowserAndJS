@@ -6,19 +6,19 @@ import Form from './Components/Form/form.js';
 const MOCK_LIST = new Map();
 
 const root = document.querySelector('#shopping-app');
-// const headerComponent = Header(CONSTANT.TITLE);
-// const listComponent = List(MOCK_LIST);
+const headerComponent = Header(CONSTANT.TITLE);
+const listComponent = List(MOCK_LIST);
+const formComponent = Form();
 
-// const formComponent = Form();
+Utils.connectComponents(root, {
+  header: headerComponent,
+  list: listComponent,
+  form: formComponent,
+});
 
-// root.insertAdjacentHTML('beforeend', headerComponent);
-// root.insertAdjacentHTML('beforeend', formComponent);
-
-// Utils.connectComponents(root, {
-//   header: headerComponent,
-//   list: listComponent,
-//   form: formComponent,
-// });
+const formElement = document.querySelector('.shopping-form');
+const formInputElement = document.querySelector('.shopping-form input');
+const listElement = document.querySelector('.shopping-list');
 
 const setListData = data => {
   const { id, title } = data;
@@ -28,14 +28,14 @@ const setListData = data => {
 const deleteListData = id => MOCK_LIST.delete(id);
 
 const initialDocument = () => {
-  root.innerHTML = '';
+  listElement.innerHTML = '';
 };
 
 const createItem = (item, index) => {
   const titleElement = `<div>${item}</div>`;
   const buttonElment = `<button class="btn-del" data-index=${index}>제거</button>`;
-  root.insertAdjacentHTML('beforeend', titleElement);
-  root.insertAdjacentHTML('beforeend', buttonElment);
+  listElement.insertAdjacentHTML('beforeend', titleElement);
+  listElement.insertAdjacentHTML('beforeend', buttonElment);
 
   const btnDel = document.querySelector(`[data-index="${index}"]`);
   btnDel.addEventListener('click', () => {
@@ -52,9 +52,12 @@ const renderList = dataList => {
   });
 };
 
-setListData({ id: 1, title: '우유' });
-setListData({ id: 2, title: '커피' });
-setListData({ id: 3, title: '커피3' });
-setListData({ id: 4, title: '커피4' });
-
-renderList(MOCK_LIST);
+let idCount = 1;
+formElement.addEventListener('submit', e => {
+  e.preventDefault();
+  setListData({ id: idCount, title: formInputElement.value });
+  idCount++;
+  initialDocument();
+  renderList(MOCK_LIST);
+  formInputElement.value = '';
+});
