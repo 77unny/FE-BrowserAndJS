@@ -16,6 +16,8 @@ Utils.connectComponents(root, {
   form: formComponent,
 });
 
+let idCount = 1;
+
 const formElement = document.querySelector('.shopping-form');
 const formInputElement = document.querySelector('.shopping-form input');
 const listElement = document.querySelector('.shopping-list');
@@ -23,24 +25,21 @@ const listElement = document.querySelector('.shopping-list');
 const setListData = data => {
   const { id, title } = data;
   MOCK_LIST.set(id, title);
-  return MOCK_LIST;
+  return;
 };
 const deleteListData = id => MOCK_LIST.delete(id);
 
-const initialDocument = () => {
-  listElement.innerHTML = '';
-};
+const clearDocumentList = () => (listElement.innerHTML = '');
 
 const createItem = (item, index) => {
-  const titleElement = `<div>${item}</div>`;
-  const buttonElment = `<button class="btn-del" data-index=${index}>제거</button>`;
-  listElement.insertAdjacentHTML('beforeend', titleElement);
-  listElement.insertAdjacentHTML('beforeend', buttonElment);
+  const itemElement = `<div class="shopping-item"><span>${item}</span><button class="btn-del" data-index=${index}>제거</button></div>`;
+  listElement.insertAdjacentHTML('beforeend', itemElement);
 
   const btnDel = document.querySelector(`[data-index="${index}"]`);
+
   btnDel.addEventListener('click', () => {
     deleteListData(index);
-    initialDocument();
+    clearDocumentList();
     renderList(MOCK_LIST);
   });
   return;
@@ -50,14 +49,14 @@ const renderList = dataList => {
   dataList.forEach((item, index) => {
     createItem(item, index);
   });
+  return;
 };
 
-let idCount = 1;
 formElement.addEventListener('submit', e => {
   e.preventDefault();
   setListData({ id: idCount, title: formInputElement.value });
   idCount++;
-  initialDocument();
+  clearDocumentList();
   renderList(MOCK_LIST);
   formInputElement.value = '';
 });
