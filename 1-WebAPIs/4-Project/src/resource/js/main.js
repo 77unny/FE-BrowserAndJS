@@ -37,7 +37,7 @@ const createItem = (item, index) => {
   listElement.insertAdjacentHTML('beforeend', itemElement);
 
   const btnDel = document.querySelector(`[data-index="${index}"]`);
-
+  btnDel.scrollIntoView({ block: 'center' });
   btnDel.addEventListener('click', () => {
     deleteListData(index);
     clearDocumentList();
