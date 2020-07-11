@@ -63,6 +63,6 @@ for (let i = 0; i < Utils.SET_COUNT; i++) {
 
 fieldElement.addEventListener('click', e => {
   if (!e.target.dataset.item) return;
-  fieldElement.removeChild;
+  fieldElement.removeChild(e.target);
   console.log(e.target.dataset.item);
 });
