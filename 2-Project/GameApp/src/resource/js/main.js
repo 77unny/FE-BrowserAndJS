@@ -60,3 +60,9 @@ for (let i = 0; i < Utils.SET_COUNT; i++) {
   createElements({ type: 'item', index: i, width, height });
   createElements({ type: 'bug', index: i, width, height });
 }
+
+fieldElement.addEventListener('click', e => {
+  if (!e.target.dataset.item) return;
+  fieldElement.removeChild;
+  console.log(e.target.dataset.item);
+});
