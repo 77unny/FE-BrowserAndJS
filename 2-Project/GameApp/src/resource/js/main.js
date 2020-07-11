@@ -9,13 +9,13 @@ const setCountTime = time => {
 
   const count = setInterval(() => {
     const nowTime = new Date();
-    const usedSec = parseInt((nowTime.getTime() - startTime.getTime()) / 1000);
-    const millisec = nowTime.getTime() - startTime.getTime();
-    if (time === usedSec) {
+    const usedTime = nowTime.getTime() - startTime.getTime() / 1000;
+    const millisec = usedTime.toFixed(2);
+    if (time === parseInt(usedSec)) {
       timerElement.innerHTML = `${time}.00`;
       return clearInterval(count);
     } else {
-      timerElement.innerHTML = (millisec / 1000).toFixed(2);
+      timerElement.innerHTML = millisec;
     }
   }, 10);
 };
@@ -25,13 +25,14 @@ const setReverseCountTIme = time => {
 
   const count = setInterval(() => {
     const nowTime = new Date();
-    const usedSec = startTime.getTime() - nowTime.getTime();
-    if (time === Math.abs(parseInt(usedSec / 1000))) {
+    const usedTime = (startTime.getTime() - nowTime.getTime()) / 1000;
+    const millisec = (time + usedTime).toFixed(2);
+    if (time === Math.abs(parseInt(usedTime))) {
       timerElement.innerHTML = `0.00`;
       popupElement.setAttribute('style', 'opacity:1; z-index:1');
       return clearInterval(count);
     } else {
-      timerElement.innerHTML = (time + usedSec / 1000).toFixed(2);
+      timerElement.innerHTML = millisec;
     }
   }, 10);
 };
