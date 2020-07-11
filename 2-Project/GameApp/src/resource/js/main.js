@@ -2,6 +2,7 @@ import * as Utils from './utils/constant.js';
 
 const root = document.querySelector('#game-app');
 const timerElement = root.querySelector('.game-timer span');
+const fieldElement = root.querySelector('.game-field');
 const popupElement = root.querySelector('.game-popup');
 
 const setCountTime = time => {
@@ -38,8 +39,11 @@ const setReverseCountTIme = time => {
 };
 
 const startGame = () => {
-  setReverseCountTIme(10);
+  setReverseCountTIme(Utils.SET_TIMER);
   popupElement.setAttribute('style', 'opacity:0; z-index:-1');
 };
 
 popupElement.addEventListener('click', startGame);
+
+const fieldArea = fieldElement.getBoundingClientRect();
+const { width, height } = fieldArea;
