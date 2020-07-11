@@ -47,7 +47,6 @@ popupElement.addEventListener('click', startGame);
 
 const fieldArea = fieldElement.getBoundingClientRect();
 const { width, height } = fieldArea;
-
 const randomPosition = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 const createElements = ({ type, index, width, height }) => {
@@ -56,3 +55,8 @@ const createElements = ({ type, index, width, height }) => {
   const newElement = `<div class=${type} data-item="${type}-${index}" style="position:absolute; top:${topCoordinate}px; left: ${leftCoordinate}px;">${type}</div>`;
   fieldElement.insertAdjacentHTML('beforeend', newElement);
 };
+
+for (let i = 0; i < Utils.SET_COUNT; i++) {
+  createElements({ type: 'item', index: i, width, height });
+  createElements({ type: 'bug', index: i, width, height });
+}
