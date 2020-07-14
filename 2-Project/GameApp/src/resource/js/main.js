@@ -9,6 +9,13 @@ const countElement = root.querySelector('.game-count .count');
 const fieldArea = fieldElement.getBoundingClientRect();
 const { width, height } = fieldArea;
 
+const carrotSound = new Audio('./resource/sound/carrot_pull.mp3');
+const alertSound = new Audio('./resource/sound/alert.wav');
+const bugSound = new Audio('./resource/sound/bug_pull.mp3');
+const bgSound = new Audio('./resource/sound/bg.mp3');
+const winSound = new Audio('./resource/sound/game_win.mp3');
+
+let gameStatus = false;
 let countTimer = null;
 let itemCount = Utils.SET_COUNT;
 gameMsgElement.innerHTML = 'Game Start';
@@ -60,13 +67,19 @@ const initialGame = () => {
 
 const startGame = () => {
   initialGame();
+  playSound(bgSound);
   setReverseCountTIme(Utils.SET_TIMER);
   popupElement.setAttribute('style', 'opacity:0; z-index:-1');
 };
 
-const finishGame = () => {
+const finishGame = msg => {
   initialGame();
-  showGameMsg('Re Play?');
+  stopSound(bgSound);
+  playSound(alertSound);
+  if (gameStatus) {
+    playSound(winSound);
+  }
+  showGameMsg(msg);
   clearInterval(countTimer);
 };
 
@@ -84,15 +97,30 @@ const createElements = ({ type, index, width, height }) => {
 
 const removeCount = () => {
   itemCount--;
-  itemCount === 0 && finishGame();
+  playSound(carrotSound);
+  if (itemCount === 0) {
+    gameStatus = !gameStatus;
+    return finishGame('Congratulations!! 👏');
+  }
   return (countElement.innerHTML = itemCount);
+};
+
+const playSound = sound => {
+  sound.currentTime = 0;
+  return sound.play();
+};
+const stopSound = sound => {
+  return sound.pause();
 };
 
 const onClickFieldTarget = e => {
   if (!e.target.dataset.item) return;
   fieldElement.removeChild(e.target);
-  e.target.className === 'bug' && finishGame();
-  e.target.className === 'item' && removeCount();
+  if (e.target.className === 'bug') {
+    playSound(bugSound);
+    return finishGame("Sad, Let's do it again");
+  }
+  if (e.target.className === 'item') return removeCount();
 };
 
 const onClickPlayGame = e => {
