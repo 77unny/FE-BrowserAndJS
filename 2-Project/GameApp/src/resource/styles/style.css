@@ -88,6 +88,6 @@ body {
   color: #fff;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.8);
-  opacity: 0;
-  z-index: -1;
+  opacity: 1;
+  z-index: 1;
 }
