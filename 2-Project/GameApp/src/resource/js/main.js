@@ -5,6 +5,8 @@ const timerElement = root.querySelector('.game-timer span');
 const fieldElement = root.querySelector('.game-field');
 const popupElement = root.querySelector('.game-popup');
 const countElement = root.querySelector('.game-count .count');
+const fieldArea = fieldElement.getBoundingClientRect();
+const { width, height } = fieldArea;
 
 let countTimer = null;
 let itemCount = Utils.SET_COUNT;
@@ -65,8 +67,6 @@ const finishGame = () => {
   clearInterval(countTimer);
 };
 
-const fieldArea = fieldElement.getBoundingClientRect();
-const { width, height } = fieldArea;
 const randomPosition = max => Math.floor(Math.random() * max);
 
 const createElements = ({ type, index, width, height }) => {
@@ -79,6 +79,7 @@ const createElements = ({ type, index, width, height }) => {
 
 const removeCount = () => {
   itemCount--;
+  itemCount === 0 && finishGame();
   return (countElement.innerHTML = itemCount);
 };
 
