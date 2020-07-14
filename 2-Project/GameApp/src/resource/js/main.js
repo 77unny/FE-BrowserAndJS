@@ -89,5 +89,10 @@ const onClickFieldTarget = e => {
   e.target.className === 'item' && removeCount();
 };
 
-popupElement.addEventListener('click', startGame);
+const onClickPlayGame = e => {
+  e.target.className === 'play' && startGame();
+  e.target.className === 'replay' && startGame();
+};
+
+popupElement.addEventListener('click', onClickPlayGame);
 fieldElement.addEventListener('click', onClickFieldTarget);
