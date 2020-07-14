@@ -4,7 +4,6 @@ const root = document.querySelector('#game-app');
 const timerElement = root.querySelector('.game-timer span');
 const fieldElement = root.querySelector('.game-field');
 const popupElement = root.querySelector('.game-popup');
-const totalElement = root.querySelector('.game-count .total');
 const countElement = root.querySelector('.game-count .count');
 
 let countTimer = null;
@@ -37,19 +36,26 @@ const setReverseCountTIme = time => {
       timerElement.innerHTML = `0.00`;
       popupElement.setAttribute('style', 'opacity:1; z-index:1');
       return clearInterval(countTimer);
-    } else {
-      timerElement.innerHTML = millisec;
     }
+    timerElement.innerHTML = millisec;
   }, 10);
 };
 
 const initialGame = () => {
   itemCount = Utils.SET_COUNT;
   countElement.innerHTML = itemCount;
+  fieldElement.innerHTML = '';
+
+  for (let i = 0; i < Utils.SET_COUNT; i++) {
+    createElements({ type: 'item', index: i, width, height });
+    createElements({ type: 'bug', index: i, width, height });
+  }
+
   popupElement.setAttribute('style', 'opacity:1; z-index:1');
 };
 
 const startGame = () => {
+  initialGame();
   setReverseCountTIme(Utils.SET_TIMER);
   popupElement.setAttribute('style', 'opacity:0; z-index:-1');
 };
@@ -58,8 +64,6 @@ const finishGame = () => {
   initialGame();
   clearInterval(countTimer);
 };
-
-popupElement.addEventListener('click', startGame);
 
 const fieldArea = fieldElement.getBoundingClientRect();
 const { width, height } = fieldArea;
@@ -73,22 +77,17 @@ const createElements = ({ type, index, width, height }) => {
   fieldElement.insertAdjacentHTML('beforeend', newElement);
 };
 
-for (let i = 0; i < Utils.SET_COUNT; i++) {
-  createElements({ type: 'item', index: i, width, height });
-  createElements({ type: 'bug', index: i, width, height });
-}
-
-totalElement.innerHTML = Utils.SET_COUNT;
-countElement.innerHTML = itemCount;
-
 const removeCount = () => {
   itemCount--;
   return (countElement.innerHTML = itemCount);
 };
 
-fieldElement.addEventListener('click', e => {
+const onClickFieldTarget = e => {
   if (!e.target.dataset.item) return;
   fieldElement.removeChild(e.target);
   e.target.className === 'bug' && finishGame();
   e.target.className === 'item' && removeCount();
-});
+};
+
+popupElement.addEventListener('click', startGame);
+fieldElement.addEventListener('click', onClickFieldTarget);
