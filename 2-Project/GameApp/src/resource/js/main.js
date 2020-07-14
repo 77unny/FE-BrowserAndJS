@@ -4,12 +4,14 @@ const root = document.querySelector('#game-app');
 const timerElement = root.querySelector('.game-timer span');
 const fieldElement = root.querySelector('.game-field');
 const popupElement = root.querySelector('.game-popup');
+const gameMsgElement = popupElement.querySelector('.game-massage');
 const countElement = root.querySelector('.game-count .count');
 const fieldArea = fieldElement.getBoundingClientRect();
 const { width, height } = fieldArea;
 
 let countTimer = null;
 let itemCount = Utils.SET_COUNT;
+gameMsgElement.innerHTML = 'Game Start';
 
 const setCountTime = time => {
   const startTime = new Date();
@@ -64,8 +66,11 @@ const startGame = () => {
 
 const finishGame = () => {
   initialGame();
+  showGameMsg('Re Play?');
   clearInterval(countTimer);
 };
+
+const showGameMsg = msg => (gameMsgElement.innerHTML = msg);
 
 const randomPosition = max => Math.floor(Math.random() * max);
 
