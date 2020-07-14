@@ -7,6 +7,9 @@ const popupElement = root.querySelector('.game-popup');
 const totalElement = root.querySelector('.game-count .total');
 const countElement = root.querySelector('.game-count .count');
 
+let countTimer = null;
+let itemCount = Utils.SET_COUNT;
+
 const setCountTime = time => {
   const startTime = new Date();
 
@@ -26,14 +29,14 @@ const setCountTime = time => {
 const setReverseCountTIme = time => {
   const startTime = new Date();
 
-  window.count = setInterval(() => {
+  countTimer = setInterval(() => {
     const nowTime = new Date();
     const usedTime = (startTime.getTime() - nowTime.getTime()) / 1000;
     const millisec = (time + usedTime).toFixed(2);
     if (time === Math.abs(parseInt(usedTime))) {
       timerElement.innerHTML = `0.00`;
       popupElement.setAttribute('style', 'opacity:1; z-index:1');
-      return clearInterval(window.coun);
+      return clearInterval(countTimer);
     } else {
       timerElement.innerHTML = millisec;
     }
@@ -51,9 +54,9 @@ const startGame = () => {
   popupElement.setAttribute('style', 'opacity:0; z-index:-1');
 };
 
-const gameOver = () => {
+const finishGame = () => {
   initialGame();
-  clearInterval(window.count);
+  clearInterval(countTimer);
 };
 
 popupElement.addEventListener('click', startGame);
@@ -75,7 +78,6 @@ for (let i = 0; i < Utils.SET_COUNT; i++) {
   createElements({ type: 'bug', index: i, width, height });
 }
 
-let itemCount = Utils.SET_COUNT;
 totalElement.innerHTML = Utils.SET_COUNT;
 countElement.innerHTML = itemCount;
 
@@ -87,6 +89,6 @@ const removeCount = () => {
 fieldElement.addEventListener('click', e => {
   if (!e.target.dataset.item) return;
   fieldElement.removeChild(e.target);
-  e.target.className === 'bug' && gameOver();
+  e.target.className === 'bug' && finishGame();
   e.target.className === 'item' && removeCount();
 });
