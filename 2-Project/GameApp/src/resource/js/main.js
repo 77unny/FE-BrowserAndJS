@@ -78,6 +78,7 @@ const finishGame = msg => {
   playSound(alertSound);
   if (gameStatus) {
     playSound(winSound);
+    gameStatus = !gameStatus;
   }
   showGameMsg(msg);
   clearInterval(countTimer);
