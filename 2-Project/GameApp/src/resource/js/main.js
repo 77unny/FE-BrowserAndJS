@@ -46,6 +46,8 @@ const setReverseCountTIme = time => {
     if (time === Math.abs(parseInt(usedTime))) {
       timerElement.innerHTML = `0.00`;
       popupElement.setAttribute('style', 'opacity:1; z-index:1');
+      stopSound(bgSound);
+      playSound(alertSound);
       return clearInterval(countTimer);
     }
     timerElement.innerHTML = millisec;
