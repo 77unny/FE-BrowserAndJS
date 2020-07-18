@@ -22,4 +22,8 @@ export default class Popup {
   show() {
     this.popupElement.classList.add('show-popup');
   }
+
+  showPopupText(text) {
+    this.gameMsgElement.innerHTML = text;
+  }
 }

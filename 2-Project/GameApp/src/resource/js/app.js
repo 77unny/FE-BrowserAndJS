@@ -21,7 +21,6 @@ const winSound = new Audio('./resource/sound/game_win.mp3');
 let gameStatus = false;
 let countTimer = null;
 let itemCount = Utils.SET_COUNT;
-gameMsgElement.innerHTML = 'Game Start';
 
 const gamePopup = new Popup({
   popupElement: popupElement,
@@ -29,7 +28,7 @@ const gamePopup = new Popup({
   playBtnElement: playBtnElement,
   replayBtnElement: replayBtnElement,
 });
-
+gamePopup.showPopupText('Play Game');
 const setReverseCountTIme = time => {
   const startTime = new Date();
 
@@ -61,8 +60,6 @@ const initialGame = () => {
   gamePopup.show();
 };
 
-const showGameMsg = msg => (gameMsgElement.innerHTML = msg);
-
 const randomPosition = max => Math.floor(Math.random() * max);
 
 const createElements = ({ type, index, width, height }) => {
@@ -87,7 +84,7 @@ const finishGame = msg => {
     playSound(winSound);
     gameStatus = !gameStatus;
   }
-  showGameMsg(msg);
+  gamePopup.showPopupText(msg);
   clearInterval(countTimer);
 };
 
