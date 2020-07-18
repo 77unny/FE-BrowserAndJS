@@ -4,14 +4,22 @@ export default class Popup {
     this.gameMsgElement = gameMsgElement;
     this.playBtnElement = playBtnElement;
     this.replayBtnElement = replayBtnElement;
-    this.popupElement.addEventListener('click', e => {
-      this.onClick && this.onClick(e);
-    });
+
     this.playBtnElement.addEventListener('click', e => {
-      console.log('click');
+      this.onClick && this.onClick(e);
+      this.hide();
     });
   }
+
   setClickListener(onClick) {
     this.onClick = onClick;
+  }
+
+  hide() {
+    this.popupElement.classList.remove('show-popup');
+  }
+
+  show() {
+    this.popupElement.classList.add('show-popup');
   }
 }
