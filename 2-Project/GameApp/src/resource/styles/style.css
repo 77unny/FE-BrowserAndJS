@@ -87,7 +87,7 @@ body {
 }
 
 .game-popup {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -102,4 +102,7 @@ body {
   background: rgba(0, 0, 0, 0.8);
   opacity: 1;
   z-index: 1;
+}
+.game-popup.show-popup {
+  display: flex;
 }

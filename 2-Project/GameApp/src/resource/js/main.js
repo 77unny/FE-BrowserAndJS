@@ -45,7 +45,7 @@ const setReverseCountTIme = time => {
     const millisec = (time + usedTime).toFixed(2);
     if (time === Math.abs(parseInt(usedTime))) {
       timerElement.innerHTML = `0.00`;
-      popupElement.setAttribute('style', 'opacity:1; z-index:1');
+      popupElement.classList.add('show-popup');
       stopSound(bgSound);
       playSound(alertSound);
       return clearInterval(countTimer);
@@ -64,14 +64,14 @@ const initialGame = () => {
     createElements({ type: 'bug', index: i, width, height });
   }
 
-  popupElement.setAttribute('style', 'opacity:1; z-index:1');
+  popupElement.classList.add('show-popup');
 };
 
 const startGame = () => {
   initialGame();
   playSound(bgSound);
   setReverseCountTIme(Utils.SET_TIMER);
-  popupElement.setAttribute('style', 'opacity:0; z-index:-1');
+  popupElement.classList.remove('show-popup');
 };
 
 const finishGame = msg => {
