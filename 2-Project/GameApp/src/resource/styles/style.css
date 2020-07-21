@@ -34,11 +34,15 @@ body {
   border: 5px solid plum;
   border-radius: 10px;
   background: #fff;
+  user-select: none;
+  cursor: auto;
 }
 .game-timer span {
   margin-right: 5px;
   font-weight: bold;
   font-size: 24px;
+  user-select: none;
+  cursor: auto;
 }
 
 .game-count {
@@ -53,6 +57,8 @@ body {
   border: 5px solid dodgerblue;
   border-radius: 50px;
   background: #fff;
+  user-select: none;
+  cursor: auto;
 }
 
 .game-field {
@@ -61,21 +67,27 @@ body {
   height: 50%;
   margin-top: auto;
 }
-.game-field .item {
-  width: 50px;
-  height: 50px;
-  text-indent: -999em;
-  background: url(../images/carrot.png) no-repeat;
-}
+.game-field .item,
 .game-field .bug {
   width: 50px;
   height: 50px;
   text-indent: -999em;
+  transition: transform 100ms ease-out;
+  cursor: pointer;
+}
+.game-field .item {
+  background: url(../images/carrot.png) no-repeat;
+}
+.game-field .bug {
   background: url(../images/bug.png) no-repeat;
+}
+.game-field .item:hover,
+.game-field .bug:hover {
+  transform: scale(1.1);
 }
 
 .game-popup {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -88,6 +100,9 @@ body {
   color: #fff;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.8);
-  opacity: 0;
-  z-index: -1;
+  opacity: 1;
+  z-index: 1;
+}
+.game-popup.show-popup {
+  display: flex;
 }
