@@ -1,5 +1,6 @@
 import * as Utils from './utils/constant.js';
 import Popup from './popup.js';
+import Field from './field.js';
 
 const root = document.querySelector('#game-app');
 const timerElement = root.querySelector('.game-timer span');
@@ -9,8 +10,6 @@ const gameMsgElement = popupElement.querySelector('.game-massage');
 const playBtnElement = popupElement.querySelector('.play');
 const replayBtnElement = popupElement.querySelector('.replay');
 const countElement = root.querySelector('.game-count .count');
-const fieldArea = fieldElement.getBoundingClientRect();
-const { width, height } = fieldArea;
 
 const carrotSound = new Audio('./resource/sound/carrot_pull.mp3');
 const alertSound = new Audio('./resource/sound/alert.wav');
@@ -28,7 +27,16 @@ const gamePopup = new Popup({
   playBtnElement: playBtnElement,
   replayBtnElement: replayBtnElement,
 });
-gamePopup.showPopupText('Play Game');
+
+const gameField = new Field({
+  element: fieldElement,
+  itemCount: Utils.SET_COUNT,
+});
+
+const onClickField = item => {
+  console.log(item);
+};
+
 const setReverseCountTIme = time => {
   const startTime = new Date();
 
@@ -39,6 +47,7 @@ const setReverseCountTIme = time => {
     if (time === Math.abs(parseInt(usedTime))) {
       timerElement.innerHTML = `0.00`;
       gamePopup.show();
+      gamePopup.showPopupText('replay game?');
       stopSound(bgSound);
       playSound(alertSound);
       return clearInterval(countTimer);
@@ -50,24 +59,9 @@ const setReverseCountTIme = time => {
 const initialGame = () => {
   itemCount = Utils.SET_COUNT;
   countElement.innerHTML = itemCount;
-  fieldElement.innerHTML = '';
 
-  for (let i = 0; i < Utils.SET_COUNT; i++) {
-    createElements({ type: 'item', index: i, width, height });
-    createElements({ type: 'bug', index: i, width, height });
-  }
-
+  gameField.init();
   gamePopup.show();
-};
-
-const randomPosition = max => Math.floor(Math.random() * max);
-
-const createElements = ({ type, index, width, height }) => {
-  const paddingRange = 100;
-  const topCoordinate = randomPosition(height - paddingRange);
-  const leftCoordinate = randomPosition(width - paddingRange);
-  const newElement = `<div class=${type} data-item="${type}-${index}" style="position:absolute; top:${topCoordinate}px; left: ${leftCoordinate}px;">${type}</div>`;
-  fieldElement.insertAdjacentHTML('beforeend', newElement);
 };
 
 const startGame = () => {
@@ -107,15 +101,6 @@ const stopSound = sound => {
   return sound.pause();
 };
 
-const onClickFieldTarget = e => {
-  if (!e.target.dataset.item) return;
-  fieldElement.removeChild(e.target);
-  if (e.target.className === 'bug') {
-    playSound(bugSound);
-    return finishGame("Sad, Let's do it again");
-  }
-  if (e.target.className === 'item') return removeCount();
-};
-
 gamePopup.setClickListener(startGame);
-fieldElement.addEventListener('click', onClickFieldTarget);
+gameField.setClickListener(onClickField);
+// fieldElement.addEventListener('click', onClickFieldTarget);
