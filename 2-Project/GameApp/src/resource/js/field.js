@@ -1,11 +1,10 @@
-const carrotSound = new Audio('./resource/sound/carrot_pull.mp3');
-
+import * as Sound from './sound.js';
 export default class Field {
   constructor({ element, itemCount }) {
     this.element = element;
     this.itemCount = itemCount;
     this.elementRect = this.element.getBoundingClientRect();
-    this.element.addEventListener('click', e => this.onClick(e));
+    this.element.addEventListener('click', this.onClick);
   }
   init() {
     const { width, height } = this.elementRect;
@@ -19,16 +18,15 @@ export default class Field {
   setClickListener(onItemClick) {
     this.onItemClick = onItemClick;
   }
-  onClick(e) {
+  onClick = e => {
     const target = e.target;
-
     if (target.matches('.item')) {
-      _playSound(carrotSound);
+      Sound.playCarrot();
       this.onItemClick && this.onItemClick('item');
       return target.remove();
     }
     if (target.matches('.bug')) return this.onItemClick && this.onItemClick('bug');
-  }
+  };
   _createElements({ type, index, width, height }) {
     const paddingRange = 100;
     const topCoordinate = _randomPosition(height - paddingRange);
@@ -39,8 +37,3 @@ export default class Field {
 }
 
 const _randomPosition = max => Math.floor(Math.random() * max);
-
-const _playSound = sound => {
-  sound.currentTime = 0;
-  return sound.play();
-};
