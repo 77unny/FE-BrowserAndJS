@@ -4,7 +4,7 @@ export default class Popup {
     this.gameMsgElement = gameMsgElement;
     this.playBtnElement = playBtnElement;
     this.replayBtnElement = replayBtnElement;
-
+    this.showPopupText('Play Game');
     this.playBtnElement.addEventListener('click', e => {
       this.onClick && this.onClick(e);
       this.hide();
