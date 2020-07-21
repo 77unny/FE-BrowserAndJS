@@ -1,5 +1,4 @@
 import * as Utils from './utils/constant.js';
-import * as Sound from './sound.js';
 
 const root = document.querySelector('#game-app');
 const timerElement = root.querySelector('.game-timer span');
@@ -9,6 +8,12 @@ const gameMsgElement = popupElement.querySelector('.game-massage');
 const countElement = root.querySelector('.game-count .count');
 const fieldArea = fieldElement.getBoundingClientRect();
 const { width, height } = fieldArea;
+
+const carrotSound = new Audio('./resource/sound/carrot_pull.mp3');
+const alertSound = new Audio('./resource/sound/alert.wav');
+const bugSound = new Audio('./resource/sound/bug_pull.mp3');
+const bgSound = new Audio('./resource/sound/bg.mp3');
+const winSound = new Audio('./resource/sound/game_win.mp3');
 
 let gameStatus = false;
 let countTimer = null;
@@ -41,8 +46,8 @@ const setReverseCountTIme = time => {
     if (time === Math.abs(parseInt(usedTime))) {
       timerElement.innerHTML = `0.00`;
       popupElement.classList.add('show-popup');
-      Sound.stopBg();
-      Sound.playAlert();
+      stopSound(bgSound);
+      playSound(alertSound);
       return clearInterval(countTimer);
     }
     timerElement.innerHTML = millisec;
@@ -64,17 +69,17 @@ const initialGame = () => {
 
 const startGame = () => {
   initialGame();
-  Sound.playBg();
+  playSound(bgSound);
   setReverseCountTIme(Utils.SET_TIMER);
   popupElement.classList.remove('show-popup');
 };
 
 const finishGame = msg => {
   initialGame();
-  Sound.stopBg();
-  Sound.playAlert();
+  stopSound(bgSound);
+  playSound(alertSound);
   if (gameStatus) {
-    Sound.playWin();
+    playSound(winSound);
     gameStatus = !gameStatus;
   }
   showGameMsg(msg);
@@ -95,7 +100,7 @@ const createElements = ({ type, index, width, height }) => {
 
 const removeCount = () => {
   itemCount--;
-  Sound.playCarrot();
+  playSound(carrotSound);
   if (itemCount === 0) {
     gameStatus = !gameStatus;
     return finishGame('Congratulations!! 👏');
@@ -103,11 +108,19 @@ const removeCount = () => {
   return (countElement.innerHTML = itemCount);
 };
 
+const playSound = sound => {
+  sound.currentTime = 0;
+  return sound.play();
+};
+const stopSound = sound => {
+  return sound.pause();
+};
+
 const onClickFieldTarget = e => {
   if (!e.target.dataset.item) return;
   fieldElement.removeChild(e.target);
   if (e.target.className === 'bug') {
-    Sound.playBg();
+    playSound(bugSound);
     return finishGame("Sad, Let's do it again");
   }
   if (e.target.className === 'item') return removeCount();
