@@ -85,15 +85,5 @@ const finishGame = msg => {
   clearInterval(countTimer);
 };
 
-const removeCount = () => {
-  itemCount--;
-  Sound.playCarrot();
-  if (itemCount === 0) {
-    gameStatus = !gameStatus;
-    return finishGame('Congratulations!! 👏');
-  }
-  return (countElement.innerHTML = itemCount);
-};
-
 gamePopup.setClickListener(startGame);
 gameField.setClickListener(onClickField);
