@@ -29,7 +29,15 @@ const gameField = new Field({
 });
 
 const onClickField = item => {
-  console.log(item);
+  if (item === 'bug') return finishGame('replay game');
+  if (item === 'item') {
+    itemCount--;
+    if (itemCount === 0) {
+      gameStatus = !gameStatus;
+      return finishGame('Congratulations!! 👏');
+    }
+    return (countElement.innerHTML = itemCount);
+  }
 };
 
 const setReverseCountTIme = time => {
@@ -67,7 +75,7 @@ const startGame = () => {
 
 const finishGame = msg => {
   initialGame();
-  Sound.playBg();
+  Sound.stopBg();
   Sound.playAlert();
   if (gameStatus) {
     Sound.playWin();
