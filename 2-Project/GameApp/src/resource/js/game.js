@@ -1,17 +1,11 @@
 import * as Sound from './sound.js';
+import * as Template from './template.js';
 import Popup from './popup.js';
 import Field from './field.js';
 
 export default class Game {
-  constructor({ itemCount, timer }) {
-    this.timerElement = document.querySelector('.game-timer span');
-    this.fieldElement = document.querySelector('.game-field');
-    this.popupElement = document.querySelector('.game-popup');
-    this.gameMsgElement = document.querySelector('.game-massage');
-    this.playBtnElement = document.querySelector('.play');
-    this.replayBtnElement = document.querySelector('.replay');
-    this.countElement = document.querySelector('.game-count .count');
-
+  constructor({ rootElement, itemCount, timer }) {
+    (this.rootElement = rootElement), this.render();
     this.gameField = new Field({
       element: this.fieldElement,
       itemCount: itemCount,
@@ -29,7 +23,20 @@ export default class Game {
     this.itemCount = itemCount;
     this.timer = timer;
   }
+  render() {
+    this.rootElement.insertAdjacentHTML('beforeend', Template.timerComponent());
+    this.rootElement.insertAdjacentHTML('beforeend', Template.countComponent());
+    this.rootElement.insertAdjacentHTML('beforeend', Template.fieldComponent());
+    this.rootElement.insertAdjacentHTML('beforeend', Template.popupComponent());
 
+    this.timerElement = document.querySelector('.game-timer span');
+    this.fieldElement = document.querySelector('.game-field');
+    this.popupElement = document.querySelector('.game-popup');
+    this.gameMsgElement = document.querySelector('.game-massage');
+    this.playBtnElement = document.querySelector('.play');
+    this.replayBtnElement = document.querySelector('.replay');
+    this.countElement = document.querySelector('.game-count .count');
+  }
   onClickField = item => {
     if (item === 'bug') return this.finish('replay game');
     if (item === 'item') {
