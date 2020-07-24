@@ -1,5 +1,6 @@
 import * as Sound from './sound.js';
 import * as Template from './template.js';
+import { ELEMENT_NAMESPACE } from './utils/constant.js';
 import Popup from './popup.js';
 import Field from './field.js';
 
@@ -29,13 +30,13 @@ export default class Game {
     this.rootElement.insertAdjacentHTML('beforeend', Template.fieldComponent());
     this.rootElement.insertAdjacentHTML('beforeend', Template.popupComponent());
 
-    this.timerElement = document.querySelector('.game-timer span');
-    this.fieldElement = document.querySelector('.game-field');
-    this.popupElement = document.querySelector('.game-popup');
-    this.gameMsgElement = document.querySelector('.game-massage');
-    this.playBtnElement = document.querySelector('.play');
-    this.replayBtnElement = document.querySelector('.replay');
-    this.countElement = document.querySelector('.game-count .count');
+    this.timerElement = document.querySelector(ELEMENT_NAMESPACE.TIMER);
+    this.fieldElement = document.querySelector(ELEMENT_NAMESPACE.FIELD);
+    this.popupElement = document.querySelector(ELEMENT_NAMESPACE.POPUP);
+    this.gameMsgElement = document.querySelector(ELEMENT_NAMESPACE.GAME_MASSAGE);
+    this.playBtnElement = document.querySelector(ELEMENT_NAMESPACE.PLAY_BUTTON);
+    this.replayBtnElement = document.querySelector(ELEMENT_NAMESPACE.REPLAY_BUTTON);
+    this.countElement = document.querySelector(ELEMENT_NAMESPACE.COUNT);
   }
   onClickField = item => {
     if (item === 'bug') return this.finish('replay game');
